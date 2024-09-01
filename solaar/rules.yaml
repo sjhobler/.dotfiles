@@ -1,0 +1,5 @@
+%YAML 1.3
+---
+- Key: [MultiPlatform Gesture Button, pressed]
+- KeyPress: [Alt_L, Tab]
+...
