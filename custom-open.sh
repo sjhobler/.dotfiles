@@ -4,7 +4,7 @@ open_file() {
     local file="$1"
     case "$file" in
         *.pdf)
-            zathura "$file"
+            zathura --page=1 "$file"
             ;;
         *.py|*.R|*.do|*.jl|*.txt|*.toml|*.yaml|*.lua|*.sh|*.pl|*.awk|*.sed|*.md)
             nvim "$file"
