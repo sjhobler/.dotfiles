@@ -110,54 +110,12 @@ fzf_preview() {
     find "$(pwd)" -type f | fzf \
         --preview '[[ {} =~ \.pdf$ ]] && pdftotext {} - | bat -l txt --color=always || bat --color=always {}' \
         --preview-window=right:60%:wrap \
-        --bind 'enter:execute(custom-open.sh {})'
+        --bind 'enter:execute(custom-open.sh {})' \
+	--bind 'ctrl-m:become(cd $(dirname {}))'
 }
-alias ppf="fzf_preview"
+alias pv="fzf_preview"
 
 
-
-# # Open file execution
-# open_file_custom() {
-#     local file="$1"
-#     case "$file" in
-#         *.pdf)
-#             zathura "$file"
-#             ;;
-#         *.py|*.R|*.do|*.jl|*.txt|*.toml|*.yaml|*.lua)
-#             nvim "$file"
-#             ;;
-#         *)
-#             xdg-open "$file"  # Opens other file types with the default application
-#             ;;
-#     esac
-# }
-
-# # custom, file-specific preview
-# fzf_preview() {
-#     find . -type f | fzf \
-#         --preview '[[ {} =~ \.pdf$ ]] && pdftotext {} - | bat -l txt --color=always || bat --color=always {}' \
-#         --preview-window=right:60%:wrap \
-#         --bind "enter:execute(open_file_custom {})" \
-# }
-
-#
-#
-#
-# open_file_custom() {
-#     local file="$1"
-#     if [[ "$file" =~ \.pdf$ ]]; then
-#         zathura "$file"
-#     else
-#         xdg-open "$file"  # Opens other file types with the default application
-#     fi
-# }
-
-# fzf_preview() {
-#     find . -type f | fzf \
-#         --preview '[[ {} =~ \.pdf$ ]] && pdftotext {} - | bat -l txt --color=always || bat --color=always {}' \
-#         --preview-window=right:60%:wrap \
-#         --bind "enter:execute(bat --color=always {} | less)"
-# }
 
 
 alias zed="~/.local/bin/zed"
