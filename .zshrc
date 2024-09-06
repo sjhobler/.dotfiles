@@ -104,19 +104,33 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias pf="fzf --preview 'bat --color=always {}'"
+
+#unalias proj 2>/dev/null
+
+# For quick file navigation to project (but requires fixed paths)
+proj() {
+    source ~/bin/project_cd.sh "$1"
+}
+#alias proj='bash -c "source ~/bin/project_cd.sh \$1" _'
+
+# Matlab alias in terminal
+alias mlab="matlab -nodesktop -nosplash"
+
+# Map vim to nvim
+alias vim="nvim"
+
+alias pf="fzf --preview 'batcat --color=always {}'"
 
 fzf_preview() {
     find "$(pwd)" -type f | fzf \
-        --preview '[[ {} =~ \.pdf$ ]] && pdftotext {} - | bat -l txt --color=always || bat --color=always {}' \
+        --preview '[[ {} =~ \.pdf$ ]] && pdftotext {} - | batcat -l txt --color=always || batcat --color=always {}' \
         --preview-window=right:60%:wrap \
-        --bind 'enter:execute(custom-open.sh {})' \
-	--bind 'ctrl-m:become(cd $(dirname {}))'
+        --bind 'enter:execute(custom-open.sh {})'
 }
 alias pv="fzf_preview"
 
 
-
+	#--bind 'ctrl-m:become(cd $(dirname {}))'
 
 alias zed="~/.local/bin/zed"
 alias oc="code . --reuse-window"
