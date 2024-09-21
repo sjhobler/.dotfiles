@@ -151,12 +151,6 @@ alias oc="code . --reuse-window"
 alias zview="zathura" 
 alias zvp="zathura --mode presentation"
 
-# IAB variable dictionary
-alias iabl="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py liab"
-alias iabd="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py diwabe"
-alias iabb="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py biza"
-
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 
