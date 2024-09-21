@@ -105,7 +105,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#unalias proj 2>/dev/null
+# Simple changes
+alias cl="clear"
+alias ex="exit"
+
+# # Todos
+alias todo="nvim ~/tasks/todo.md"
+
+# Configuration files
+alias cfv="vim ~/.config/nvim/init.lua"
+alias cfa="nvim ~/.config/alacritty/alacritty.toml"
 
 # For quick file navigation to project (but requires fixed paths)
 proj() {
@@ -115,6 +124,11 @@ proj() {
 
 # Matlab alias in terminal
 alias mlab="matlab -nodesktop -nosplash"
+
+# Github copilot CLI
+alias ghcs="gh copilot suggest"
+alias ghce="gh copilot explain"
+
 
 # Map vim to nvim
 alias vim="nvim"
@@ -136,6 +150,12 @@ alias zed="~/.local/bin/zed"
 alias oc="code . --reuse-window"
 alias zview="zathura" 
 alias zvp="zathura --mode presentation"
+
+# IAB variable dictionary
+alias iabl="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py liab"
+alias iabd="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py diwabe"
+alias iabb="/home/stephan/Documents/LSE/JMP/02_Data/01_labor_data/IAB/lookup_tools/get_iab_vars_dict.py biza"
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
