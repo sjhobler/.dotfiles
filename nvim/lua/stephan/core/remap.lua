@@ -26,6 +26,14 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Tab and indent settings
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.autoindent = true
+
 -- Save undo history
 vim.opt.undofile = true
 
@@ -85,3 +93,7 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+
+-- -- Remap
+vim.keymap.set('n', '<Leader>o', 'o<Esc>k', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>O', 'O<Esc>j', { noremap = true, silent = true })

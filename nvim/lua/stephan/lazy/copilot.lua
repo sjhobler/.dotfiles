@@ -33,9 +33,71 @@ return {
         height = 0.5,
         row = nil,
       },
+      model = 'gpt-4', -- 'claude-3.5-sonnet',
     },
+    config = function(_, opts)
+      local chat = require 'CopilotChat'
+      chat.setup(opts)
 
-    -- See Commands section for default commands if you want to lazy load on them
-    vim.keymap.set('n', '<leader>ai', '<cmd>CopilotChat<CR>', { desc = '[A]rtificial [I]ntelligence' }),
+      -- Disable any additional highlighting
+      vim.cmd [[
+        highlight CopilotChatSelection guibg=NONE guifg=NONE
+        highlight CopilotChatPrompt guibg=NONE guifg=NONE
+      ]]
+
+      -- Keymap definitions
+      vim.keymap.set({ 'n', 'v' }, '<leader>ai', '<cmd>CopilotChat<CR>', { desc = '[A]rtificial [I]ntelligence' })
+      vim.keymap.set('n', '<leader>cm', '<cmd>CopilotChatModels<CR>', { desc = '[C]opilot [M]odels' })
+
+      -- Quick chat with Copilot
+      vim.keymap.set('n', '<leader>ccq', function()
+        local input = vim.fn.input 'Quick Chat: '
+        if input ~= '' then
+          require('CopilotChat').ask(input, {
+            selection = require('CopilotChat.select').buffer,
+            window = {
+              layout = 'vertical',
+              relative = 'editor',
+              border = 'rounded',
+              width = 0.35,
+              height = math.floor(vim.o.lines * 0.5),
+              row = math.floor(vim.o.lines * 0.25),
+              col = math.floor(vim.o.columns * 0.5), -- Define col
+            },
+          })
+        end
+      end, { desc = '[C]opilot[C]hat - [Q]uick chat' })
+
+      -- TODO: add diagonostics support and bind to <leader>ad
+      vim.keymap.set({ 'n', 'v' }, '<leader>ad', function()
+        local diagnostics = vim.diagnostic.get()
+        if #diagnostics > 0 then
+          local diagnostic_messages = {}
+          for _, diagnostic in ipairs(diagnostics) do
+            table.insert(diagnostic_messages, diagnostic.message)
+          end
+          local input = table.concat(diagnostic_messages, '\n')
+          require('CopilotChat').ask(input, {
+            selection = require('CopilotChat.select').buffer,
+            window = {
+              layout = 'vertical',
+              relative = 'editor',
+              border = 'rounded',
+              width = 0.35,
+              height = math.floor(vim.o.lines * 0.5),
+              row = math.floor(vim.o.lines * 0.25),
+              col = math.floor(vim.o.columns * 0.5),
+            },
+          })
+        else
+          print 'No diagnostics available'
+        end
+      end, { desc = '[A]sk [D]iagnostics' })
+
+      vim.keymap.set('v', '<leader>ccp', function()
+        local actions = require 'CopilotChat.actions'
+        require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
+      end, { desc = 'CopilotChat - Prompt actions' })
+    end,
   },
 }
