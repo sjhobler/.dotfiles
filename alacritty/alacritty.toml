@@ -1,3 +1,11 @@
+# General
+import = [
+    "~/.config/alacritty/catppuccin.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
 # Set theme
 [window]
 padding.x = 0
@@ -6,16 +14,16 @@ padding.y = 0
 decorations = "none"
 startup_mode = "Maximized"
 
-opacity = 0.95
+opacity = 0.92 # 1.0
 blur = true
 
 [font]
-#normal.family = "JuliaMono"
+# normal.family = "JuliaMono"
 #normal.family = "FiraMonoNerdFont"
-#normal.family = "MesloLGSNerdFont"
+# normal.family = "MesloLGSNerdFont"
 #normal.family = "CascadiaMono" -- really want a nerd fond
 normal.family = "CaskaydiaMonoNerdFont"
-#normal.family = "JetBrainsMonoNerdFont"
+# normal.family = "JetBrainsMonoNerdFont"
 
 size = 11
 
@@ -29,37 +37,37 @@ style.blinking = "Off"
 [mouse]
 hide_when_typing = true
 
-# Colors (Base16 Default Dark)
-# Default colors
-[colors.primary]
-background = '#000000'
-foreground = '#d8d8d8'
+# # Colors (Base16 Default Dark)
+# # Default colors
+# [colors.primary]
+# background = '#000000'
+# foreground = '#d8d8d8'
 
-[colors.cursor]
-text = '#181818'
-cursor = '#d8d8d8'
+# [colors.cursor]
+# text = '#181818'
+# cursor = '#d8d8d8'
 
-# Normal colors
-[colors.normal]
-black   = '#181818'
-red     = '#ab4642'
-green   = '#a1b56c'
-yellow  = '#f7ca88'
-blue    = '#7cafc2'
-magenta = '#ba8baf'
-cyan    = '#86c1b9'
-white   = '#d8d8d8'
+# # Normal colors
+# [colors.normal]
+# black   = '#181818'
+# red     = '#ab4642'
+# green   = '#a1b56c'
+# yellow  = '#f7ca88'
+# blue    = '#7cafc2'
+# magenta = '#ba8baf'
+# cyan    = '#86c1b9'
+# white   = '#d8d8d8'
 
-# Bright colors
-[colors.bright]
-black   = '#585858'
-red     = '#ab4642'
-green   = '#a1b56c'
-yellow  = '#f7ca88'
-blue    = '#7cafc2'
-magenta = '#ba8baf'
-cyan    = '#86c1b9'
-white   = '#f8f8f8'
+# # Bright colors
+# [colors.bright]
+# black   = '#585858'
+# red     = '#ab4642'
+# green   = '#a1b56c'
+# yellow  = '#f7ca88'
+# blue    = '#7cafc2'
+# magenta = '#ba8baf'
+# cyan    = '#86c1b9'
+# white   = '#f8f8f8'
 
 
 
