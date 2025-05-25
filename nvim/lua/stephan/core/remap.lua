@@ -68,11 +68,14 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Enable block cursor in all modes
+vim.opt.guicursor = ''
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix [L]ist' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
@@ -94,6 +97,53 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
--- -- Remap
-vim.keymap.set('n', '<Leader>o', 'o<Esc>k', { noremap = true, silent = true })
-vim.keymap.set('n', '<Leader>O', 'O<Esc>j', { noremap = true, silent = true })
+-- Remap
+vim.keymap.set('n', '<Leader>o', 'o<Esc>k', { noremap = true, silent = true }) -- Insert a new line above the current line
+vim.keymap.set('n', '<Leader>O', 'O<Esc>j', { noremap = true, silent = true }) -- Insert a new line below the current line
+
+-- Faster navigation
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '5j', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '5k', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-h>', '5h', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-l>', '5l', { noremap = true, silent = true })
+
+vim.keymap.set('i', 'jj', '<Esc>', { noremap = true, silent = true })
+
+-- Creating new terminal in splits
+vim.keymap.set(
+  'n',
+  '<leader>ip',
+  '<cmd>vsplit | terminal zsh -i -c "conda activate py312 && ipython3"<CR> <cmd>setlocal nonumber norelativenumber<CR>i',
+  { desc = '[I]nsert i[P]ython in terminal' }
+)
+vim.keymap.set(
+  'n',
+  '<leader>ij',
+  '<cmd>vsplit | terminal zsh -i -c "julia --threads 4"<CR> <cmd>setlocal nonumber norelativenumber<CR>i',
+  { desc = '[I]nsert [J]ulia in terminal' }
+)
+vim.keymap.set(
+  'n',
+  '<leader>ir',
+  '<cmd>vsplit | terminal zsh -i -c "radian"<CR> <cmd>setlocal nonumber norelativenumber<CR>i',
+  { desc = '[I]nsert [R] in terminal' }
+)
+vim.keymap.set(
+  'n',
+  '<leader>it',
+  '<cmd>vsplit | terminal zsh -i -c "tree"<CR> <cmd>setlocal nonumber norelativenumber<CR>',
+  { desc = '[I]nsert Directory [T]ree in terminal' }
+)
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+
+-- Navigating between splits
+vim.keymap.set({ 'i', 't' }, '<C-w><C-h>', '<Esc> <C-w>h', { noremap = true, silent = true, buffer = true })
+vim.keymap.set({ 'i', 't' }, '<C-w><C-l>', '<Esc> <C-w>l', { noremap = true, silent = true, buffer = true })
+vim.keymap.set({ 'i', 't' }, '<C-w><C-j>', '<Esc> <C-w>j', { noremap = true, silent = true, buffer = true })
+vim.keymap.set({ 'i', 't' }, '<C-w><C-k>', '<Esc> <C-w>k', { noremap = true, silent = true, buffer = true })
+
+-- Send code to other buffers
+vim.keymap.set('v', '<C-c><C-s>', 'y <C-w>l p <Esc> i', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<C-c><C-s>', 'vip y <C-w>l p <Esc> i', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+vim.keymap.set('v', '<C-c><C-d>', 'y <C-w>j p <Esc> i', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<C-c><C-d>', 'vip y <C-w>j p <Esc> i', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })

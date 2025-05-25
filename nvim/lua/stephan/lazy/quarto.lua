@@ -36,6 +36,15 @@ return {
 
     vim.keymap.set('n', '<leader>qp', '<cmd>QuartoPreview<cr>'),
     vim.keymap.set('n', '<leader>qq', '<cmd>QuartoClosePreview<cr>'),
+
+    vim.keymap.set('n', '<leader>qi', 'o```{python}\n```<esc>O', { desc = '[Q]uarto [I]nsert Python Code Chunk' }),
+    vim.keymap.set('n', '<leader>qr', 'o```{r}\n```<esc>O', { desc = '[Q]uarto Insert [R] Code Chunk' }),
+    vim.keymap.set('n', '<leader>qj', 'o```{julia}\n```<esc>O', { desc = '[Q]uarto Insert [J]ulia Code Chunk' }),
+    -- vim.keymap.set('n', '<leader>qs', 'o```{python}\n%%stata\n```<esc>O', { desc = '[Q]uarto Insert [S]tata Code Chunk' }),
+    vim.keymap.set('n', '<leader>qs', 'o```{stata}\n```<esc>O', { desc = '[Q]uarto Insert [S]tata Code Chunk' }),
+
+    vim.keymap.set('n', '<leader>ch', '<cmd>set conceallevel=1<cr>', { desc = '[C]onceal Levels [H]ide' }),
+    vim.keymap.set('n', '<leader>cv', '<cmd>set conceallevel=0<cr>', { desc = '[C]onceal Levels [V]isible' }),
   },
 
   -- otter-nvim: lsp features and code completion source for code embedded in other documents

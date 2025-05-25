@@ -29,11 +29,30 @@ return {
           path = '~/Documents/Obsidian/work',
         },
       },
+
+      ui = { enable = false },
+
+      ---@param url string
+      follow_url_func = function(url)
+        -- Open the URL in the default web browser.
+        vim.fn.jobstart { 'xdg-open', url } -- linux
+      end,
     },
+
     -- see below for full list of options
     --},
     init = function()
-      vim.opt.conceallevel = 1
+      vim.opt.conceallevel = 2
     end,
   },
+  vim.keymap.set('n', '<leader>fog', function()
+    require('telescope.builtin').live_grep {
+      search_dirs = { '~/Documents/Obsidian/work' },
+    }
+  end, { noremap = true, silent = true, desc = 'Search in Obsidian notes' }),
+  vim.keymap.set('n', '<leader>fof', function()
+    require('telescope.builtin').find_files {
+      search_dirs = { '~/Documents/Obsidian/work' },
+    }
+  end, { noremap = true, silent = true, desc = 'Find files in Obsidian notes' }),
 }

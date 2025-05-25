@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,12 +72,19 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
-	web-search
+	# web-search
 	zsh-autosuggestions
 	copypath
 )
+plugins+=(zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
+
+# Starship init
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+eval "$(dircolors ~/.dircolors)"
 
 # User configuration
 
@@ -111,10 +118,6 @@ alias ex="exit"
 
 # # Todos
 alias todo="nvim ~/tasks/todo.md"
-
-# Configuration files
-alias cfv="vim ~/.config/nvim/init.lua"
-alias cfa="nvim ~/.config/alacritty/alacritty.toml"
 
 # For quick file navigation to project (but requires fixed paths)
 proj() {
@@ -178,17 +181,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# add path to radian
-export PATH="$HOME/anaconda3/bin:$PATH"
-
 # add path to stata
 export PATH="/usr/local/stata18:$PATH"
 
 # add compile_sagelatex to path
 export PATH="$HOME/bin/compile_sagelatex:$PATH"
-
-# add kitty to path
-export PATH="$HOME/.local/kitty.app/bin:$PATH"
 
 # add bin to path
 export PATH="$HOME/bin:$PATH"

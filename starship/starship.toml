@@ -1,0 +1,212 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+format = """$directory$character"""
+right_format = """$all"""
+
+# Custom orange/gray palette
+palette = "orange_gray"
+
+[username]
+show_always = false
+style_user = "bold orange"
+style_root = "bold red"
+
+[character]
+success_symbol = "[[❯](orange) ](gray)"
+error_symbol = "[[✗](red) ❯](gray)"
+vimcmd_symbol = "[[ ❮](orange) ](gray)"
+
+[git_branch]
+style = "bold gray"
+format = '[ $symbol$branch(:$remote_branch)]($style)'
+symbol = " "
+
+[git_status]
+style = "orange"
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+staged = '[+${count}](green)'
+modified = '[!${count}](yellow)'
+untracked = '[?${count}](red)'
+deleted = '[-${count}](red)'
+conflicted = '[=${count}](red)'
+
+[git_metrics]
+disabled = false
+added_style = "green"
+deleted_style = "red"
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+
+[directory]
+truncation_length = 4
+truncation_symbol = "…/"
+style = "bold orange"
+
+[julia]
+style = "bold orange"
+symbol = '∴ '
+disabled = true
+
+[aws]
+disabled = true
+
+[cmd_duration]
+min_time = 500
+format = "took [$duration]($style)"
+style = "yellow"
+
+[nodejs]
+style = "green"
+format = "via [$symbol($version )]($style)"
+disabled = true
+
+[python]
+style = "blue"
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+# Orange/Gray palette definition
+[palettes.orange_gray]
+orange = "#ffa066"
+gray = "#727169"
+light_gray = "#9399b2"
+dark_gray = "#45475a"
+red = "#c34043"
+green = "#76946a"
+yellow = "#c0a36e"
+blue = "#7e9cd8"
+white = "#dcd7ba"
+
+# # Get editor completions based on the config schema
+# "$schema" = 'https://starship.rs/config-schema.json'
+
+# add_newline = false
+
+# format = """$directory$character"""
+# right_format = """$all"""
+
+# # Sets user-defined palette
+# # Palettes must be defined _after_ this line
+# # palette = "catppuccin_mocha"
+# # palette = "rose-pine"
+# palette = "kanagawa"
+
+# [username]
+# show_always = false
+# style = "fg"
+
+# # Starship modules
+# [character]
+# # Note the use of Catppuccin color 'peach'
+# success_symbol = "[[](green) ❯](gray)"
+# error_symbol = "[[✗](red) ❯](gray)"
+# vimcmd_symbol = "[ ❮](subtext1)" # For use with zsh-vi-mode
+# # success_symbol = "[[](green) ❯](peach)"
+# # error_symbol = "[[✗](red) ❯](peach)"
+# # vimcmd_symbol = "[ ❮](subtext1)" # For use with zsh-vi-mode
+
+# [git_branch]
+# style = "bold gray"
+# # style = "bold mauve"
+# format =  '[$symbol$branch(:$remote_branch)]($style)'
+
+# [git_status]
+# style = "green"
+# ahead = '⇡${count}'
+# diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+# behind = '⇣${count}'
+
+# [git_metrics]
+# disabled = false
+
+# [directory]
+# truncation_length = 4
+# style = "bold orange"
+# # style = "bold iris"
+# # style = "bold lavender"
+
+# [julia]
+# style = "bold orange"
+# # style = "bold pine"
+# # style = "bold mauve"
+# symbol = '∴ '
+# disabled = true
+
+# [aws]
+# disabled = true
+
+# [cmd_duration]
+# # Shows how long the last command took to execute
+# min_time = 500 # Only show if it took longer than 500ms
+# format = " took [$duration]($style) "
+# style = "bold yellow"
+
+# # [memory_usage]
+# # disabled = false
+# # threshold = -1
+# # symbol = ' '
+# # style = 'bold dimmed green'
+
+# [palettes.kanagawa]
+# bg             = "#1f1f28"
+# fg             = "#dcd7ba"
+# red            = "#c34043"
+# green          = "#76946a"
+# yellow         = "#c0a36e"
+# blue           = "#7e9cd8"
+# magenta        = "#957fb8"
+# cyan           = "#6a9589"
+# orange         = "#ffa066"
+# gray           = "#727169"
+
+# # # Palette definition
+# # [palettes.catppuccin_mocha]
+# # rosewater = "#f5e0dc"
+# # flamingo = "#f2cdcd"
+# # pink = "#f5c2e7"
+# # mauve = "#cba6f7"
+# # red = "#f38ba8"
+# # maroon = "#eba0ac"
+# # peach = "#fab387"
+# # yellow = "#f9e2af"
+# # green = "#a6e3a1"
+# # teal = "#94e2d5"
+# # sky = "#89dceb"
+# # sapphire = "#74c7ec"
+# # blue = "#89b4fa"
+# # lavender = "#b4befe"
+# # text = "#cdd6f4"
+# # subtext1 = "#bac2de"
+# # subtext0 = "#a6adc8"
+# # overlay2 = "#9399b2"
+# # overlay1 = "#7f849c"
+# # overlay0 = "#6c7086"
+# # surface2 = "#585b70"
+# # surface1 = "#45475a"
+# # surface0 = "#313244"
+# # base = "#1e1e2e"
+# # mantle = "#181825"
+# # crust = "#11111b"
+
+# # [palettes.rose-pine]
+# # overlay = '#26233a'
+# # love = '#eb6f92'
+# # gold = '#f6c177'
+# # rose = '#ebbcba'
+# # pine = '#31748f'
+# # foam = '#9ccfd8'
+# # iris = '#c4a7e7'
+
+# # [palettes.kanagawa]
+# # fuji_white = "#DCD7BA"
+# # old_white = "#C8C093"
+# # sumi_ink = "#16161D"
+# # wave_blue = "#7E9CD8"
+# # spring_green = "#98BB6C"
+# # peach_red = "#FF5D62"
+# # crystal_blue = "#7FB4CA"
+# # autumn_orange = "#FFA066"
+

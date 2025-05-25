@@ -1,31 +1,38 @@
 # General
 import = [
-    "~/.config/alacritty/catppuccin.toml"
+    "~/.config/alacritty/themes/themes/kanagawa_dragon.toml"
 ]
 
 [env]
 TERM = "xterm-256color"
 
+[colors]
+draw_bold_text_with_bright_colors = true
+
 # Set theme
 [window]
 padding.x = 0
 padding.y = 0
-
 decorations = "none"
 startup_mode = "Maximized"
 
-opacity = 0.92 # 1.0
+opacity = 1.0
+dynamic_title = true
 blur = true
 
 [font]
 # normal.family = "JuliaMono"
-#normal.family = "FiraMonoNerdFont"
+# normal.family = "FiraMonoNerdFont"
 # normal.family = "MesloLGSNerdFont"
-#normal.family = "CascadiaMono" -- really want a nerd fond
-normal.family = "CaskaydiaMonoNerdFont"
+# normal.family = "CascadiaMono" -- really want a nerd fond
+# normal.family = "CaskaydiaMonoNerdFont"
 # normal.family = "JetBrainsMonoNerdFont"
-
-size = 11
+# normal.family = "IosevkaNerdFont"
+normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
+bold = { family = "JetBrainsMonoNerdFont", style = "Bold" }
+italic = { family = "JetBrainsMonoNerdFont", style = "Italic" }
+bold_italic = { family = "JetBrainsMonoNerdFont", style = "Bold Italic" }
+size = 12
 
 [selection]
 save_to_clipboard = true
@@ -33,152 +40,11 @@ save_to_clipboard = true
 [cursor]
 style.shape = "Block"
 style.blinking = "Off"
+vi_mode_style = { shape = "Block", blinking = "Never" } 
 
 [mouse]
 hide_when_typing = true
-
-# # Colors (Base16 Default Dark)
-# # Default colors
-# [colors.primary]
-# background = '#000000'
-# foreground = '#d8d8d8'
-
-# [colors.cursor]
-# text = '#181818'
-# cursor = '#d8d8d8'
-
-# # Normal colors
-# [colors.normal]
-# black   = '#181818'
-# red     = '#ab4642'
-# green   = '#a1b56c'
-# yellow  = '#f7ca88'
-# blue    = '#7cafc2'
-# magenta = '#ba8baf'
-# cyan    = '#86c1b9'
-# white   = '#d8d8d8'
-
-# # Bright colors
-# [colors.bright]
-# black   = '#585858'
-# red     = '#ab4642'
-# green   = '#a1b56c'
-# yellow  = '#f7ca88'
-# blue    = '#7cafc2'
-# magenta = '#ba8baf'
-# cyan    = '#86c1b9'
-# white   = '#f8f8f8'
-
-
-
-
-## Colors (Vesper)
-## Source https://github.com/raunofreiberg/vesper
-#[colors.primary]
-#background = '#000000'
-#foreground = '#ffffff'
-#
-#[colors.normal]
-#black   = '#101010'
-#red     = '#f5a191'
-#green   = '#90b99f'
-#yellow  = '#e6b99d'
-#blue    = '#aca1cf'
-#magenta = '#e29eca'
-#cyan    = '#ea83a5'
-#white   = '#a0a0a0'
-#
-#[colors.bright]
-#black   = '#7e7e7e'
-#red     = '#ff8080'
-#green   = '#99ffe4'
-#yellow  = '#ffc799'
-#blue    = '#b9aeda'
-#magenta = '#ecaad6'
-#cyan    = '#f591b2'
-#white   = '#ffffff'
-
-
-
-
-## Color configuration (rose-pine)
-#[colors.primary]
-#background = '#000000'
-#foreground = '#e0def4'
-#
-#[colors.cursor]
-#text = '#e0def4'
-#cursor = '#524f67'
-#
-#[colors.vi_mode_cursor]
-#text = '#e0def4'
-#cursor = '#524f67'
-#
-#[colors.selection]
-#text = '#e0def4'
-#background = '#403d52'
-#
-#[colors.normal]
-#black = '#26233a'
-#red = '#eb6f92'
-#green = '#31748f'
-#yellow = '#f6c177'
-#blue = '#9ccfd8'
-#magenta = '#c4a7e7'
-#cyan = '#ebbcba'
-#white = '#e0def4'
-#
-#[colors.bright]
-#black = '#6e6a86'
-#red = '#eb6f92'
-#green = '#31748f'
-#yellow = '#f6c177'
-#blue = '#9ccfd8'
-#magenta = '#c4a7e7'
-#cyan = '#ebbcba'
-#white = '#e0def4'
-#
-#[colors.hints]
-#start = {foreground = '#908caa', background = '#1f1d2e' }
-#end = { foreground = '#6e6a86', background = '#1f1d2e' }
-
-
-
-
-
-
-## Colors (Ayu Dark)
-#
-## Default colors
-#[colors.primary]
-#background = '0x000000'
-#foreground = '#B3B1AD'
-#
-## Normal colors
-#[colors.normal]
-#black   = '#01060E'
-#red     = '#EA6C73'
-#green   = '#91B362'
-#yellow  = '#F9AF4F'
-#blue    = '#53BDFA'
-#magenta = '#FAE994'
-#cyan    = '#90E1C6'
-#white   = '#C7C7C7'
-#
-## Bright colors
-#[colors.bright]
-#black   = '#686868'
-#red     = '#F07178'
-#green   = '#C2D94C'
-#yellow  = '#FFB454'
-#blue    = '#59C2FF'
-#magenta = '#FFEE99'
-#cyan    = '#95E6CB'
-#white   = '#FFFFFF'
-
-
-
-#[colors]
-#  [colors.primary]
-#    background = '0x000000'
-#    foreground = '0xffffff'
+bindings = [
+    { mouse = "Right", action = "PasteSelection" },
+    { mouse = "Middle", action = "PasteSelection" },
+]

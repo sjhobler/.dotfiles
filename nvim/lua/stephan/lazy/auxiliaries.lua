@@ -25,14 +25,37 @@ return {
   {
     'tpope/vim-commentary',
     lazy = false,
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'stata',
+        command = 'setlocal commentstring=*//\\ %s',
+      })
+    end,
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      signs = false,
+      keywords = {
+        WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX', 'CAVEAT' } },
+        QUESTION = { icon = '', color = 'warning', alt = { 'IDEA' } },
+        NOTE = { icon = ' ', color = 'hint', alt = { 'INFO', 'COMMENT' } },
+      },
+      merge_keywords = true,
+      highlight = {
+        comments_only = false,
+      },
+    },
+  },
 
   {
     'rmagatti/goto-preview',
     event = 'BufEnter',
+    dependencies = 'rmagatti/logger.nvim',
     --config = true,
 
     config = function()

@@ -1,19 +1,37 @@
 return {
+  -- {
+  --   'github/copilot.vim',
+  --   lazy = false,
+  --   -- config = function()  -- Mapping tab is already used by NvChad
+  --   --   vim.g.copilot_no_tab_map = true;
+  --   --   vim.g.copilot_assume_mapped = true;
+  --   --   vim.g.copilot_tab_fallback = "";
+  --   -- -- The mapping is set to other key, see custom/lua/mappings
+  --   -- -- or run <leader>ch to see copilot mapping section
+  --   -- end
+  -- },
   {
-    'github/copilot.vim',
-    lazy = false,
-    -- config = function()  -- Mapping tab is already used by NvChad
-    --   vim.g.copilot_no_tab_map = true;
-    --   vim.g.copilot_assume_mapped = true;
-    --   vim.g.copilot_tab_fallback = "";
-    -- -- The mapping is set to other key, see custom/lua/mappings
-    -- -- or run <leader>ch to see copilot mapping section
-    -- end
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = {
+          auto_trigger = true,
+          debounce = 25,
+          keymap = {
+            accept_word = '<C-j>',
+            accept = '<M-l>',
+          },
+        },
+        enabled = true,
+      }
+    end,
   },
 
   {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
+    branch = 'main',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
@@ -33,7 +51,7 @@ return {
         height = 0.5,
         row = nil,
       },
-      model = 'gpt-4', -- 'claude-3.5-sonnet',
+      model = 'claude-3.7-sonnet',
     },
     config = function(_, opts)
       local chat = require 'CopilotChat'
@@ -41,12 +59,12 @@ return {
 
       -- Disable any additional highlighting
       vim.cmd [[
-        highlight CopilotChatSelection guibg=NONE guifg=NONE
-        highlight CopilotChatPrompt guibg=NONE guifg=NONE
-      ]]
+          highlight CopilotChatSelection guibg=NONE guifg=NONE
+          highlight CopilotChatPrompt guibg=NONE guifg=NONE
+        ]]
 
       -- Keymap definitions
-      vim.keymap.set({ 'n', 'v' }, '<leader>ai', '<cmd>CopilotChat<CR>', { desc = '[A]rtificial [I]ntelligence' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ai', '<cmd>CopilotChatOpen<CR>', { desc = '[A]rtificial [I]ntelligence' })
       vim.keymap.set('n', '<leader>cm', '<cmd>CopilotChatModels<CR>', { desc = '[C]opilot [M]odels' })
 
       -- Quick chat with Copilot

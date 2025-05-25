@@ -1,7 +1,11 @@
 return {
   {
     'nvim-telescope/telescope-file-browser.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
+      { 'nvim-telescope/telescope-live-grep-args.nvim', version = '^1.0.0' },
+    },
   },
 
   { -- Fuzzy Finder (files, lsp, etc)
@@ -47,6 +51,11 @@ return {
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          path_display = {
+            'smart',
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -61,6 +70,13 @@ return {
             filetypes = { 'pdf', 'png', 'jpg', 'jpeg' },
             find_cmd = 'rg', -- find command (defaults to `fd`)
           },
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
         },
       }
 
@@ -68,6 +84,7 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'file_browser')
+      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -84,7 +101,9 @@ return {
       --vim.keymap.set("n", "<leader>fb", ":Telescope file_browser<CR>")
       -- open file_browser with the path of the current buffer
       vim.keymap.set('n', '<space>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
-      --vim.keymap.set('n', '<leader>fi', '<cmd>AdvancedGitSearch<CR>', { desc = '[F]ind [I]n Git' })
+      vim.keymap.set('n', '<leader>fi', '<cmd>AdvancedGitSearch<CR>', { desc = '[F]ind [I]n Git' })
+      vim.keymap.set('n', '<leader>ff', ':Telescope find_files cwd=', { desc = '[F]ind [F]iles In' })
+      vim.keymap.set('n', '<leader>sa', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = '[S]earch by Grep [A]rgs' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -108,6 +127,13 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Shortcut for searching
+      vim.keymap.set('n', '<leader>fg', function()
+        builtin.live_grep {
+          prompt_title = 'Live Grep in All Files',
+        }
+      end, { desc = '[S]earch [/] in All Files' })
     end,
   },
 }
