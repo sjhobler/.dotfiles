@@ -129,13 +129,4 @@ return {
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-
-  -- vim be good (practice vim motions)
-  {
-    'ThePrimeagen/vim-be-good',
-    lazy = false,
-    config = function()
-      vim.g.be_good_do_not_show_message = 1
-    end,
-  },
 }

@@ -11,23 +11,16 @@ draw_bold_text_with_bright_colors = true
 
 # Set theme
 [window]
-padding.x = 0
+padding.x = 2
 padding.y = 0
 decorations = "none"
 startup_mode = "Maximized"
 
-opacity = 1.0
+opacity = 0.98
 dynamic_title = true
 blur = true
 
 [font]
-# normal.family = "JuliaMono"
-# normal.family = "FiraMonoNerdFont"
-# normal.family = "MesloLGSNerdFont"
-# normal.family = "CascadiaMono" -- really want a nerd fond
-# normal.family = "CaskaydiaMonoNerdFont"
-# normal.family = "JetBrainsMonoNerdFont"
-# normal.family = "IosevkaNerdFont"
 normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
 bold = { family = "JetBrainsMonoNerdFont", style = "Bold" }
 italic = { family = "JetBrainsMonoNerdFont", style = "Italic" }

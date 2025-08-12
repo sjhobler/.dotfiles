@@ -1,15 +1,4 @@
 return {
-  -- {
-  --   'github/copilot.vim',
-  --   lazy = false,
-  --   -- config = function()  -- Mapping tab is already used by NvChad
-  --   --   vim.g.copilot_no_tab_map = true;
-  --   --   vim.g.copilot_assume_mapped = true;
-  --   --   vim.g.copilot_tab_fallback = "";
-  --   -- -- The mapping is set to other key, see custom/lua/mappings
-  --   -- -- or run <leader>ch to see copilot mapping section
-  --   -- end
-  -- },
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
@@ -22,9 +11,25 @@ return {
           keymap = {
             accept_word = '<C-j>',
             accept = '<M-l>',
+            dismiss = '<M-k>',
+            next = '<M-]>',
+            prev = '<M-[>',
           },
         },
-        enabled = true,
+        enabled = false,
+        filetypes = {
+          tex = false,
+          latex = false,
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ['.'] = false,
+        },
       }
     end,
   },
@@ -51,7 +56,7 @@ return {
         height = 0.5,
         row = nil,
       },
-      model = 'claude-3.7-sonnet',
+      model = 'claude-sonnet-4',
     },
     config = function(_, opts)
       local chat = require 'CopilotChat'
@@ -111,11 +116,6 @@ return {
           print 'No diagnostics available'
         end
       end, { desc = '[A]sk [D]iagnostics' })
-
-      vim.keymap.set('v', '<leader>ccp', function()
-        local actions = require 'CopilotChat.actions'
-        require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-      end, { desc = 'CopilotChat - Prompt actions' })
     end,
   },
 }

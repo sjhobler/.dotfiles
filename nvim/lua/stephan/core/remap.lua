@@ -1,6 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set block cursor
+vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr-o:hor50'
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -8,6 +11,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'number'
+vim.o.winborder = 'single'
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -87,11 +91,11 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Other remaps
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
-
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Other remaps
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
@@ -101,19 +105,11 @@ vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 vim.keymap.set('n', '<Leader>o', 'o<Esc>k', { noremap = true, silent = true }) -- Insert a new line above the current line
 vim.keymap.set('n', '<Leader>O', 'O<Esc>j', { noremap = true, silent = true }) -- Insert a new line below the current line
 
--- Faster navigation
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '5j', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '5k', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '5h', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '5l', { noremap = true, silent = true })
-
-vim.keymap.set('i', 'jj', '<Esc>', { noremap = true, silent = true })
-
 -- Creating new terminal in splits
 vim.keymap.set(
   'n',
   '<leader>ip',
-  '<cmd>vsplit | terminal zsh -i -c "conda activate py312 && ipython3"<CR> <cmd>setlocal nonumber norelativenumber<CR>i',
+  '<cmd>vsplit | terminal zsh -i -c "source ~/ds_env/bin/activate && ipython3"<CR> <cmd>setlocal nonumber norelativenumber<CR>i',
   { desc = '[I]nsert i[P]ython in terminal' }
 )
 vim.keymap.set(
@@ -136,14 +132,70 @@ vim.keymap.set(
 )
 vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
 
--- Navigating between splits
-vim.keymap.set({ 'i', 't' }, '<C-w><C-h>', '<Esc> <C-w>h', { noremap = true, silent = true, buffer = true })
-vim.keymap.set({ 'i', 't' }, '<C-w><C-l>', '<Esc> <C-w>l', { noremap = true, silent = true, buffer = true })
-vim.keymap.set({ 'i', 't' }, '<C-w><C-j>', '<Esc> <C-w>j', { noremap = true, silent = true, buffer = true })
-vim.keymap.set({ 'i', 't' }, '<C-w><C-k>', '<Esc> <C-w>k', { noremap = true, silent = true, buffer = true })
+-- Show diagnostics in a floating window
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[D]iagnostics [O]pen Float' })
 
 -- Send code to other buffers
-vim.keymap.set('v', '<C-c><C-s>', 'y <C-w>l p <Esc> i', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-c><C-s>', 'vip y <C-w>l p <Esc> i', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
-vim.keymap.set('v', '<C-c><C-d>', 'y <C-w>j p <Esc> i', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-c><C-d>', 'vip y <C-w>j p <Esc> i', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+-- (1) Send code and stay in the current buffer
+vim.keymap.set('v', '<C-c><C-s>', 'y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<C-c><C-s>', 'vip y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+vim.keymap.set('v', '<C-c><C-d>', 'y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+vim.keymap.set('n', '<C-c><C-d>', 'vip y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+
+-- (2) Send code and return to the other buffer
+vim.keymap.set('v', '<M-c>l', function()
+  vim.cmd 'normal! y'
+  vim.cmd 'wincmd l'
+  vim.cmd 'normal! p'
+  vim.cmd 'startinsert!'
+  vim.api.nvim_feedkeys('\r', 'i', true)
+
+  vim.schedule(function()
+    vim.cmd 'stopinsert' -- Exit insert mode in right buffer
+    vim.cmd 'wincmd h' -- Then move back to left buffer
+  end)
+end, { desc = 'Send to right buffer', noremap = true, silent = true })
+
+vim.keymap.set('n', '<M-c>l', function()
+  vim.cmd 'normal! vip' -- Select
+  vim.cmd 'normal! y'
+  vim.cmd 'wincmd l'
+  vim.cmd 'normal! p'
+  vim.cmd 'startinsert!'
+  vim.api.nvim_feedkeys('\r', 'i', true)
+
+  vim.schedule(function()
+    vim.cmd 'stopinsert' -- Exit insert mode in right buffer
+    vim.cmd 'wincmd h' -- Then move back to left buffer
+  end)
+end, { desc = 'Send to right buffer', noremap = true, silent = true })
+
+vim.keymap.set('v', '<M-c>j', function()
+  vim.cmd 'normal! y'
+  vim.cmd 'wincmd j'
+  vim.cmd 'normal! p'
+  vim.cmd 'startinsert!'
+  vim.api.nvim_feedkeys('\r', 'i', true)
+
+  vim.schedule(function()
+    vim.cmd 'stopinsert' -- Exit insert mode in right buffer
+    vim.cmd 'wincmd k' -- Then move back to left buffer
+  end)
+end, { desc = 'Send to right buffer below', noremap = true, silent = true })
+
+vim.keymap.set('n', '<M-c>j', function()
+  vim.cmd 'normal! vip' -- Select
+  vim.cmd 'normal! y'
+  vim.cmd 'wincmd j'
+  vim.cmd 'normal! p'
+  vim.cmd 'startinsert!'
+  vim.api.nvim_feedkeys('\r', 'i', true)
+
+  vim.schedule(function()
+    vim.cmd 'stopinsert' -- Exit insert mode in right buffer
+    vim.cmd 'wincmd k' -- Then move back to left buffer
+  end)
+end, { desc = 'Send to buffer below', noremap = true, silent = true })
+
+vim.keymap.set('n', '<C-w>a', '<cmd>:vertical resize 200%<CR>', { desc = 'Maximize current buffer' })
+-- vim.keymap.set('n', '<C-w>=', '<C-w>=', { desc = 'Equalize all buffers' })
