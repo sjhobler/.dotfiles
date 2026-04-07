@@ -12,7 +12,10 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  spec = 'stephan.lazy',
+  spec = {
+    { import = 'stephan.lazy' },
+    { import = 'stephan.lazy.lsp' },
+  },
   change_detection = { notify = false },
 }, {
   ui = {

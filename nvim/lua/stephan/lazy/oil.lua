@@ -1,12 +1,13 @@
+local detail = false
+
 return {
   -- fil-browser
   {
     'stevearc/oil.nvim',
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'echasnovski/mini.icons' },
+    keys = {
+      { '-', '<CMD>Oil<CR>', desc = 'Open parent directory' },
     },
-    ---@module 'oil'
-    ---@type oil.SetupOpts
     opts = {
       send_to_trash = true, -- enable trash support
       view_options = {
@@ -17,6 +18,10 @@ return {
             or vim.endswith(name, '.fls')
             or vim.endswith(name, '.out')
             or vim.endswith(name, 'synctex.gz')
+            or vim.endswith(name, 'bbl')
+            or vim.endswith(name, 'bcf')
+            or vim.endswith(name, 'blg')
+            or vim.endswith(name, 'run.xml')
         end,
       },
       keymaps = {
@@ -32,10 +37,5 @@ return {
         },
       },
     },
-    -- Optional dependencies
-    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' }),
   },
 }

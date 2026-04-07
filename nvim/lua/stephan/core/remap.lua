@@ -2,7 +2,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set block cursor
-vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr-o:hor50'
+-- vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr-o:hor50'
+vim.opt.guicursor = ''
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -10,7 +11,6 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = 'number'
 vim.o.winborder = 'single'
 
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -72,8 +72,11 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- Enable block cursor in all modes
-vim.opt.guicursor = ''
+-- priority in which to depict fileformats
+vim.opt.fileformats = 'unix,dos,mac'
+
+-- -- Enable block cursor in all modes
+-- vim.opt.guicursor = ''
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -130,17 +133,17 @@ vim.keymap.set(
   '<cmd>vsplit | terminal zsh -i -c "tree"<CR> <cmd>setlocal nonumber norelativenumber<CR>',
   { desc = '[I]nsert Directory [T]ree in terminal' }
 )
-vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+-- vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
 
 -- Show diagnostics in a floating window
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[D]iagnostics [O]pen Float' })
 
 -- Send code to other buffers
 -- (1) Send code and stay in the current buffer
-vim.keymap.set('v', '<C-c><C-s>', 'y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-c><C-s>', 'vip y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
-vim.keymap.set('v', '<C-c><C-d>', 'y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-c><C-d>', 'vip y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+-- vim.keymap.set('v', '<C-c><C-s>', 'y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+-- vim.keymap.set('n', '<C-c><C-s>', 'vip y <C-w>l p <Esc> A <CR>', { desc = '[C]ode [S]end to right buffer', noremap = true, silent = true })
+-- vim.keymap.set('v', '<C-c><C-d>', 'y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
+-- vim.keymap.set('n', '<C-c><C-d>', 'vip y <C-w>j p <Esc> A <CR>', { desc = '[C]ode [S]end to down buffer', noremap = true, silent = true })
 
 -- (2) Send code and return to the other buffer
 vim.keymap.set('v', '<M-c>l', function()
@@ -199,3 +202,7 @@ end, { desc = 'Send to buffer below', noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-w>a', '<cmd>:vertical resize 200%<CR>', { desc = 'Maximize current buffer' })
 -- vim.keymap.set('n', '<C-w>=', '<C-w>=', { desc = 'Equalize all buffers' })
+
+-- Brute force recoloring of kanagawa
+vim.keymap.set('n', '<leader>kh', '<cmd>:lua SetKanagawaHighlights()<CR><cmd>:lua SetBackground()<CR>', { desc = 'Apply Kanagawa highlight overrides' })
+vim.keymap.set('n', '<leader>hb', '<cmd>:lua SetBackground()<CR>', { desc = 'Set Background' })

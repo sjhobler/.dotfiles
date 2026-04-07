@@ -1,70 +1,52 @@
 -- Define the function to create a new file from a template
 _G.new_file_from_template = function()
-  local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
-  require('telescope.builtin').find_files {
-    prompt_title = 'Select a Template',
+  local template_dir = vim.fn.expand '~/.config/templates'
+  require('snacks').picker.files {
     cwd = template_dir,
-    attach_mappings = function(_, map)
-      map('i', '<CR>', function(prompt_bufnr)
-        local action_state = require 'telescope.actions.state'
-        local actions = require 'telescope.actions'
-        local entry = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-
-        -- Open the selected file as a new unsaved buffer
-        local selected_file = entry.path
+    prompt = 'Select a Template',
+    confirm = function(picker, item)
+      if item then
+        local selected_file = vim.fs.joinpath(template_dir, item.file)
         local new_file = vim.fn.input('New file name: ', '', 'file')
+        picker:close()
         if new_file ~= '' then
           vim.cmd('edit ' .. new_file)
-          vim.cmd('0read ' .. selected_file) -- Preload template
+          vim.cmd('0read ' .. selected_file)
         end
-      end)
-      return true
+      end
     end,
   }
 end
 
 _G.read_file_from_template = function()
-  local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
-  require('telescope.builtin').find_files {
-    prompt_title = 'Select a Template',
+  local template_dir = vim.fn.expand '~/.config/templates'
+  require('snacks').picker.files {
     cwd = template_dir,
-    attach_mappings = function(_, map)
-      map('i', '<CR>', function(prompt_bufnr)
-        local action_state = require 'telescope.actions.state'
-        local actions = require 'telescope.actions'
-        local entry = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-
-        -- Open the selected file as a new unsaved buffer
-        local selected_file = entry.path
-        vim.cmd('0read ' .. selected_file .. ' | normal! G') -- Paste in template
-      end)
-      return true
+    prompt = 'Select a Template',
+    confirm = function(picker, item)
+      if item then
+        local selected_file = vim.fs.joinpath(template_dir, item.file)
+        picker:close()
+        vim.cmd('0read ' .. vim.fn.fnameescape(selected_file) .. ' | normal! G')
+      end
     end,
   }
 end
 
 _G.view_template = function()
-  local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
-  require('telescope.builtin').find_files {
-    prompt_title = 'Select a Template',
+  local template_dir = vim.fn.expand '~/.config/templates'
+  require('snacks').picker.files {
     cwd = template_dir,
-    attach_mappings = function(_, map)
-      map('i', '<CR>', function(prompt_bufnr)
-        local action_state = require 'telescope.actions.state'
-        local actions = require 'telescope.actions'
-        local entry = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-
-        -- Open the selected file as a new unsaved buffer
-        vim.cmd 'enew' -- Create a new buffer
-        local selected_file = entry.path
-        vim.cmd('0read ' .. selected_file) -- Paste in template
-        vim.cmd '1delete' -- Remove the first empty line
-        vim.bo.modified = false -- Mark buffer as unmodified
-      end)
-      return true
+    prompt = 'Select a Template',
+    confirm = function(picker, item)
+      if item then
+        vim.cmd 'enew'
+        local selected_file = vim.fs.joinpath(template_dir, item.file)
+        picker:close()
+        vim.cmd('0read ' .. selected_file)
+        vim.cmd '1delete'
+        vim.bo.modified = false
+      end
     end,
   }
 end
@@ -81,3 +63,76 @@ return {
     end, { desc = '[P]ick [T]template files' }),
   },
 }
+
+-- -- Define the function to create a new file from a template
+-- _G.new_file_from_template = function()
+--   local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
+--   require('telescope.builtin').find_files {
+--     prompt_title = 'Select a Template',
+--     cwd = template_dir,
+--     attach_mappings = function(_, map)
+--       map('i', '<CR>', function(prompt_bufnr)
+--         local action_state = require 'telescope.actions.state'
+--         local actions = require 'telescope.actions'
+--         local entry = action_state.get_selected_entry()
+--         actions.close(prompt_bufnr)
+
+--         -- Open the selected file as a new unsaved buffer
+--         local selected_file = entry.path
+--         local new_file = vim.fn.input('New file name: ', '', 'file')
+--         if new_file ~= '' then
+--           vim.cmd('edit ' .. new_file)
+--           vim.cmd('0read ' .. selected_file) -- Preload template
+--         end
+--       end)
+--       return true
+--     end,
+--   }
+-- end
+
+-- _G.read_file_from_template = function()
+--   local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
+--   require('telescope.builtin').find_files {
+--     prompt_title = 'Select a Template',
+--     cwd = template_dir,
+--     attach_mappings = function(_, map)
+--       map('i', '<CR>', function(prompt_bufnr)
+--         local action_state = require 'telescope.actions.state'
+--         local actions = require 'telescope.actions'
+--         local entry = action_state.get_selected_entry()
+--         actions.close(prompt_bufnr)
+
+--         -- Open the selected file as a new unsaved buffer
+--         local selected_file = entry.path
+--         vim.cmd('0read ' .. selected_file .. ' | normal! G') -- Paste in template
+--       end)
+--       return true
+--     end,
+--   }
+-- end
+
+-- _G.view_template = function()
+--   local template_dir = vim.fn.expand '~/.config/templates' -- Expand '~' to the full path
+--   require('telescope.builtin').find_files {
+--     prompt_title = 'Select a Template',
+--     cwd = template_dir,
+--     attach_mappings = function(_, map)
+--       map('i', '<CR>', function(prompt_bufnr)
+--         local action_state = require 'telescope.actions.state'
+--         local actions = require 'telescope.actions'
+--         local entry = action_state.get_selected_entry()
+--         actions.close(prompt_bufnr)
+
+--         -- Open the selected file as a new unsaved buffer
+--         vim.cmd 'enew' -- Create a new buffer
+--         local selected_file = entry.path
+--         vim.cmd('0read ' .. selected_file) -- Paste in template
+--         vim.cmd '1delete' -- Remove the first empty line
+--         vim.bo.modified = false -- Mark buffer as unmodified
+--       end)
+--       return true
+--     end,
+--   }
+-- end
+--
+--

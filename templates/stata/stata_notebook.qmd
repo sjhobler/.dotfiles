@@ -1,0 +1,16 @@
+---
+title: "Stata testing"
+format: html
+jupyter: python3
+---
+
+```{python}
+import stata_setup
+stata_setup.config("/usr/local/stata18", "be")
+```
+
+```{python}
+%%stata
+display "Hello world!"
+
+```
